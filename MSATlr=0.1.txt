@@ -1,0 +1,65 @@
+-----------------timestep:32-----------------
+relu1: average spike rate: 0.1261615753173828
+relu2: average spike rate: 0.09056871384382248
+relu3: average spike rate: 0.07124483585357666
+relu4: average spike rate: 0.11175854504108429
+relu5: average spike rate: 0.05533803999423981
+relu6: average spike rate: 0.03129233792424202
+relu7: average spike rate: 0.028241749852895737
+relu8: average spike rate: 0.01535908505320549
+relu9: average spike rate: 0.018570587038993835
+relu10: average spike rate: 0.017934896051883698
+relu11: average spike rate: 0.026083672419190407
+relu12: average spike rate: 0.05558731034398079
+relu13: average spike rate: 0.03611713647842407
+-----------------timestep:256-----------------
+relu1: average spike rate: 0.12964119017124176
+relu2: average spike rate: 0.09733885526657104
+relu3: average spike rate: 0.0765983983874321
+relu4: average spike rate: 0.09639447927474976
+relu5: average spike rate: 0.07389438897371292
+relu6: average spike rate: 0.03589853271842003
+relu7: average spike rate: 0.031177666038274765
+relu8: average spike rate: 0.02485653944313526
+relu9: average spike rate: 0.032116737216711044
+relu10: average spike rate: 0.030783390626311302
+relu11: average spike rate: 0.03028412163257599
+relu12: average spike rate: 0.05909953638911247
+relu13: average spike rate: 0.046797871589660645
+
+Accuracy Adaptive Lr(0.1) = 92.22%
+
+ANN Top Accuracy = 0.9224 = 92.24%
+
+Accuracy Non-Adaptive Lr(0.1) = 91.94%
+-----------------timestep:32-----------------
+relu1: average spike rate: 0.007644434459507465
+relu2: average spike rate: 0.02584649994969368
+relu3: average spike rate: 0.022533658891916275
+relu4: average spike rate: 0.007529169786721468
+relu5: average spike rate: 0.0036533421371132135
+relu6: average spike rate: 0.008037962950766087
+relu7: average spike rate: 0.0036787299904972315
+relu8: average spike rate: 0.0035536556970328093
+relu9: average spike rate: 0.003355559194460511
+relu10: average spike rate: 0.005656036548316479
+relu11: average spike rate: 0.013518771156668663
+relu12: average spike rate: 0.03881688788533211
+relu13: average spike rate: 0.009727607481181622
+
+-----------------timestep:256-----------------
+relu1: average spike rate: 0.010784357786178589
+relu2: average spike rate: 0.020048609003424644
+relu3: average spike rate: 0.02239762432873249
+relu4: average spike rate: 0.009988195262849331
+relu5: average spike rate: 0.008363248780369759
+relu6: average spike rate: 0.010353109799325466
+relu7: average spike rate: 0.007370560895651579
+relu8: average spike rate: 0.011387534439563751
+relu9: average spike rate: 0.016323400661349297
+relu10: average spike rate: 0.01793213002383709
+relu11: average spike rate: 0.01787618361413479
+relu12: average spike rate: 0.04368078336119652
+relu13: average spike rate: 0.014217930845916271
+
+

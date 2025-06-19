@@ -1,0 +1,36 @@
+Adaptive Settings:
+(workers=10, epochs=50, start_epoch=0, batch_size=128, lr=0.001, print_freq=100, evaluate=False, 
+seed=23, T=8, means=1.0, TET=True, lvth=True, lamb=0.9, 
+dataset='cifar10', model='CIFARVGGSNN9', save_path='./sav
+e/server_with_lvth/', nprocs=1)
+
+-----------------Epoch: 1-----------------
+features.0.act: average spike rate: 0.17656732
+features.1.act: average spike rate: 0.16832185
+features.2.act: average spike rate: 0.16294301
+features.4.act: average spike rate: 0.17162514
+features.5.act: average spike rate: 0.16807079
+features.7.act: average spike rate: 0.19329023
+features.8.act: average spike rate: 0.18298435
+features.10.act: average spike rate: 0.20640278
+features.11.act: average spike rate: 0.11546230
+
+-----------------Epoch: 50-----------------
+features.0.act: average spike rate: 0.30564213
+features.1.act: average spike rate: 0.17449129
+features.2.act: average spike rate: 0.13956308
+features.4.act: average spike rate: 0.13240314
+features.5.act: average spike rate: 0.09027243
+features.7.act: average spike rate: 0.07911539
+features.8.act: average spike rate: 0.03966379
+features.10.act: average spike rate: 0.37483406
+features.11.act: average spike rate: 0.05125523
+
+--- Energy Report ---
+Total training time   : 8058.56 s
+Total energy consumed : 1471462.54 J
+Average power draw    : 182.60 W
+
+Top 1 Accuracy:
+91.06%
+

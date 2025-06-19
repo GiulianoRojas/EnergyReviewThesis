@@ -1,0 +1,669 @@
+Namespace(workers=10, epochs=50, start_epoch=0, batch_size=128, lr=0.001, print_freq=100, evaluate=False, seed=23, T=8, means=1.0, TET=True, lvth=False, lamb=0.9, dataset='cifar10', model='CIFARVGGSNN9', save_path='./save/sparsity_no_lvth/', nprocs=1)
+CIFARVGGSNN9(
+  (features): Sequential(
+    (0): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): LIFSpike(thre=1.000, tau=0.500)
+    )
+    (1): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (2): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (3): SeqToANNContainer(
+      (module): AvgPool2d(kernel_size=2, stride=2, padding=0)
+    )
+    (4): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (5): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (6): SeqToANNContainer(
+      (module): AvgPool2d(kernel_size=2, stride=2, padding=0)
+    )
+    (7): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (8): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (9): SeqToANNContainer(
+      (module): AvgPool2d(kernel_size=2, stride=2, padding=0)
+    )
+    (10): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (11): Layer(
+      (fwd): SeqToANNContainer(
+        (module): Sequential(
+          (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (act): ZIFArchTan()
+    )
+    (12): SeqToANNContainer(
+      (module): AvgPool2d(kernel_size=2, stride=2, padding=0)
+    )
+  )
+  (classifier1): SeqToANNContainer(
+    (module): Linear(in_features=2048, out_features=512, bias=True)
+  )
+  (classifier2): SeqToANNContainer(
+    (module): Linear(in_features=512, out_features=10, bias=True)
+  )
+  (drop): SeqToANNContainer(
+    (module): Dropout(p=0.5, inplace=False)
+  )
+)
+----  --------  ------------  ------------  ------------  ---------  ------------  ------------  ------------  ---------------  ---------------
+  ep        lr    train_loss    train_top1    train_top5    avg_vth    valid_loss    valid_top1    valid_top5    EpochEnergy_J    Best_Accuracy
+----  --------  ------------  ------------  ------------  ---------  ------------  ------------  ------------  ---------------  ---------------
+   1    0.0010        0.2430       39.4860       82.3400     1.0000        2.1318       56.7800       90.9900       32013.2772          56.7800
+   2    0.0010        0.2254       62.5020       93.6380     1.0000        2.0797       66.2400       95.8300       29314.9305          66.2400
+   3    0.0010        0.2217       71.6760       96.3120     1.0000        2.0515       72.8100       96.8400       20342.7069          72.8100
+   4    0.0010        0.2198       76.9380       97.2220     1.0000        2.0333       76.5700       97.9800       29233.8415          76.5700
+   5    0.0010        0.2186       79.9120       97.7580     1.0000        2.0293       77.7100       97.6800       28124.6114          77.7100
+   6    0.0010        0.2177       82.2260       98.0260     1.0000        2.0118       81.5200       97.9700       28314.6004          81.5200
+   7    0.0010        0.2170       84.0140       98.1620     1.0000        1.9886       83.9800       98.6300       30037.9981          83.9800
+   8    0.0010        0.2163       85.5020       98.4720     1.0000        1.9941       82.7200       98.4900       30232.6809          83.9800
+   9    0.0010        0.2157       86.7540       98.5680     1.0000        1.9790       85.0900       98.8200       30313.4726          85.0900
+  10    0.0010        0.2151       87.9780       98.7200     1.0000        1.9681       85.4400       98.8600       30253.4270          85.4400
+  11    0.0010        0.2146       88.8360       98.7600     1.0000        1.9660       85.4600       99.0400       26603.6046          85.4600
+  12    0.0010        0.2142       89.6080       98.8440     1.0000        1.9596       86.9700       99.2200       30518.5470          86.9700
+  13    0.0010        0.2138       90.4440       98.9920     1.0000        1.9625       87.0200       99.1200       30240.5261          87.0200
+  14    0.0010        0.2133       91.0520       99.0980     1.0000        1.9630       86.9000       98.9300       30429.0388          87.0200
+  15    0.0010        0.2129       91.5960       99.1620     1.0000        1.9548       87.1300       99.1900       30320.3908          87.1300
+  16    0.0010        0.2126       92.2940       99.1980     1.0000        1.9450       87.7300       99.1700       30235.7952          87.7300
+  17    0.0010        0.2122       92.8940       99.2780     1.0000        1.9458       87.5600       98.8700       30099.5022          87.7300
+  18    0.0010        0.2119       93.1940       99.3040     1.0000        1.9479       88.1300       98.9700       31252.4806          88.1300
+  19    0.0010        0.2115       93.8540       99.3020     1.0000        1.9387       87.9800       99.0200       30878.3840          88.1300
+  20    0.0010        0.2113       94.1140       99.3840     1.0000        1.9390       88.2300       98.8500       29844.3383          88.2300
+  21    0.0010        0.2110       94.4260       99.4780     1.0000        1.9372       89.2100       99.1500       30873.6788          89.2100
+  22    0.0010        0.2108       94.9540       99.4860     1.0000        1.9307       88.8700       98.6200       30317.0737          89.2100
+  23    0.0010        0.2106       95.1980       99.5380     1.0000        1.9354       89.1000       98.9000       29621.5473          89.2100
+  24    0.0010        0.2103       95.5360       99.5680     1.0000        1.9332       89.2200       98.8800       31328.4191          89.2200
+  25    0.0010        0.2101       95.8920       99.6240     1.0000        1.9251       89.1200       98.7600       29824.9077          89.2200
+  26    0.0010        0.2100       95.9960       99.6160     1.0000        1.9237       89.4500       98.9400       30247.0749          89.4500
+  27    0.0010        0.2098       96.3440       99.6380     1.0000        1.9260       89.4700       98.8100       30190.2933          89.4700
+  28    0.0010        0.2096       96.5820       99.6900     1.0000        1.9327       89.1600       98.3200       30915.0957          89.4700
+  29    0.0010        0.2095       96.6560       99.6900     1.0000        1.9246       89.6400       98.8200       30203.3393          89.6400
+  30    0.0010        0.2095       96.7420       99.7120     1.0000        1.9235       89.8200       98.7400       29611.4601          89.8200
+  31    0.0008        0.2091       97.4520       99.7460     1.0000        1.9166       90.2400       98.9700       30277.2439          90.2400
+  32    0.0008        0.2090       97.5540       99.7900     1.0000        1.9206       90.3300       99.1100       30692.1669          90.3300
+  33    0.0008        0.2089       97.9440       99.8020     1.0000        1.9252       90.1300       98.6800       28847.1994          90.3300
+  34    0.0008        0.2088       98.0540       99.7920     1.0000        1.9169       90.5900       98.5500       30177.7703          90.5900
+  35    0.0008        0.2088       98.1140       99.8360     1.0000        1.9175       90.6900       98.8600       25471.3142          90.6900
+  36    0.0008        0.2088       98.1340       99.8400     1.0000        1.9155       90.7000       98.7600       30269.9887          90.7000
+  37    0.0008        0.2086       98.4200       99.8580     1.0000        1.9168       90.6900       98.8200       30261.1653          90.7000
+  38    0.0008        0.2086       98.3540       99.8520     1.0000        1.9151       90.5500       99.0700       29406.1271          90.7000
+  39    0.0008        0.2086       98.4340       99.8680     1.0000        1.9177       90.6400       99.1200       29856.6176          90.7000
+  40    0.0008        0.2085       98.5900       99.8780     1.0000        1.9172       90.8000       98.9400       26194.8240          90.8000
+  41    0.0008        0.2085       98.6480       99.8960     1.0000        1.9206       90.4200       98.7700       30263.4306          90.8000
+  42    0.0008        0.2084       98.8220       99.8920     1.0000        1.9135       90.5000       98.8800       29013.6027          90.8000
+  43    0.0008        0.2084       98.8040       99.8940     1.0000        1.9182       90.6500       99.0200       30320.2953          90.8000
+  44    0.0008        0.2084       98.8000       99.9060     1.0000        1.9174       90.8100       98.9000       30204.9530          90.8100
+  45    0.0008        0.2084       98.8100       99.8820     1.0000        1.9192       90.1900       98.8700       30273.8766          90.8100
+  46    0.0008        0.2083       98.9540       99.8900     1.0000        1.9184       90.4200       98.6700       28905.4123          90.8100
+  47    0.0008        0.2082       99.0760       99.9200     1.0000        1.9157       90.8000       98.8900       30415.5030          90.8100
+  48    0.0008        0.2082       99.0480       99.9140     1.0000        1.9168       90.6300       98.7700       30680.8174          90.8100
+  49    0.0008        0.2082       99.1100       99.9060     1.0000        1.9191       90.7200       98.9800       27837.1522          90.8100
+  50    0.0008        0.2082       99.1340       99.9160     1.0000        1.9181       91.1700       99.1100       30212.6708          91.1700
+
+--- Energy Report ---
+Total training time   : 7879.51 s
+Total energy consumed : 1485990.98 J
+Average power draw    : 188.59 W
+-----------------------
+
+--- Sparsity Report ---
+-----------------Epoch: 1-----------------
+features.0.act: average spike rate: 0.17197633
+features.1.act: average spike rate: 0.16319001
+features.2.act: average spike rate: 0.16359365
+features.4.act: average spike rate: 0.17727613
+features.5.act: average spike rate: 0.17985463
+features.7.act: average spike rate: 0.19309998
+features.8.act: average spike rate: 0.17647219
+features.10.act: average spike rate: 0.21099091
+features.11.act: average spike rate: 0.11422253
+-----------------Epoch: 2-----------------
+features.0.act: average spike rate: 0.17803788
+features.1.act: average spike rate: 0.15961516
+features.2.act: average spike rate: 0.15951622
+features.4.act: average spike rate: 0.18134546
+features.5.act: average spike rate: 0.16191125
+features.7.act: average spike rate: 0.18276358
+features.8.act: average spike rate: 0.18440008
+features.10.act: average spike rate: 0.20008659
+features.11.act: average spike rate: 0.09095955
+-----------------Epoch: 3-----------------
+features.0.act: average spike rate: 0.18941164
+features.1.act: average spike rate: 0.16113997
+features.2.act: average spike rate: 0.15474963
+features.4.act: average spike rate: 0.16979194
+features.5.act: average spike rate: 0.15820599
+features.7.act: average spike rate: 0.17295265
+features.8.act: average spike rate: 0.18819046
+features.10.act: average spike rate: 0.19590855
+features.11.act: average spike rate: 0.08676052
+-----------------Epoch: 4-----------------
+features.0.act: average spike rate: 0.19923425
+features.1.act: average spike rate: 0.16033340
+features.2.act: average spike rate: 0.15035617
+features.4.act: average spike rate: 0.16060948
+features.5.act: average spike rate: 0.15085793
+features.7.act: average spike rate: 0.16943121
+features.8.act: average spike rate: 0.17791271
+features.10.act: average spike rate: 0.19899845
+features.11.act: average spike rate: 0.08583546
+-----------------Epoch: 5-----------------
+features.0.act: average spike rate: 0.20558000
+features.1.act: average spike rate: 0.16160154
+features.2.act: average spike rate: 0.15130091
+features.4.act: average spike rate: 0.15564847
+features.5.act: average spike rate: 0.14007306
+features.7.act: average spike rate: 0.16054296
+features.8.act: average spike rate: 0.16810369
+features.10.act: average spike rate: 0.19984150
+features.11.act: average spike rate: 0.08558750
+-----------------Epoch: 6-----------------
+features.0.act: average spike rate: 0.21390772
+features.1.act: average spike rate: 0.16440856
+features.2.act: average spike rate: 0.15025234
+features.4.act: average spike rate: 0.14741993
+features.5.act: average spike rate: 0.13347721
+features.7.act: average spike rate: 0.15220976
+features.8.act: average spike rate: 0.15805435
+features.10.act: average spike rate: 0.19667625
+features.11.act: average spike rate: 0.08656597
+-----------------Epoch: 7-----------------
+features.0.act: average spike rate: 0.21747017
+features.1.act: average spike rate: 0.16520202
+features.2.act: average spike rate: 0.14878631
+features.4.act: average spike rate: 0.14318943
+features.5.act: average spike rate: 0.12561274
+features.7.act: average spike rate: 0.14422989
+features.8.act: average spike rate: 0.15445423
+features.10.act: average spike rate: 0.19648647
+features.11.act: average spike rate: 0.08431530
+-----------------Epoch: 8-----------------
+features.0.act: average spike rate: 0.22716665
+features.1.act: average spike rate: 0.16402471
+features.2.act: average spike rate: 0.14593542
+features.4.act: average spike rate: 0.13897610
+features.5.act: average spike rate: 0.11946559
+features.7.act: average spike rate: 0.14264059
+features.8.act: average spike rate: 0.14070988
+features.10.act: average spike rate: 0.20081520
+features.11.act: average spike rate: 0.08519173
+-----------------Epoch: 9-----------------
+features.0.act: average spike rate: 0.23306632
+features.1.act: average spike rate: 0.16660833
+features.2.act: average spike rate: 0.14413500
+features.4.act: average spike rate: 0.13508177
+features.5.act: average spike rate: 0.11549306
+features.7.act: average spike rate: 0.12910891
+features.8.act: average spike rate: 0.13551569
+features.10.act: average spike rate: 0.19626999
+features.11.act: average spike rate: 0.08366108
+-----------------Epoch: 10-----------------
+features.0.act: average spike rate: 0.23567772
+features.1.act: average spike rate: 0.16220188
+features.2.act: average spike rate: 0.14500606
+features.4.act: average spike rate: 0.13434553
+features.5.act: average spike rate: 0.11024976
+features.7.act: average spike rate: 0.12556601
+features.8.act: average spike rate: 0.13079071
+features.10.act: average spike rate: 0.19483757
+features.11.act: average spike rate: 0.08389282
+-----------------Epoch: 11-----------------
+features.0.act: average spike rate: 0.24043059
+features.1.act: average spike rate: 0.16882741
+features.2.act: average spike rate: 0.14402461
+features.4.act: average spike rate: 0.13553762
+features.5.act: average spike rate: 0.10859942
+features.7.act: average spike rate: 0.12391996
+features.8.act: average spike rate: 0.12963581
+features.10.act: average spike rate: 0.19486141
+features.11.act: average spike rate: 0.08223343
+-----------------Epoch: 12-----------------
+features.0.act: average spike rate: 0.24301362
+features.1.act: average spike rate: 0.16537642
+features.2.act: average spike rate: 0.14295590
+features.4.act: average spike rate: 0.13034344
+features.5.act: average spike rate: 0.10498857
+features.7.act: average spike rate: 0.11915112
+features.8.act: average spike rate: 0.12044621
+features.10.act: average spike rate: 0.18879700
+features.11.act: average spike rate: 0.08176041
+-----------------Epoch: 13-----------------
+features.0.act: average spike rate: 0.24635077
+features.1.act: average spike rate: 0.16598570
+features.2.act: average spike rate: 0.14330864
+features.4.act: average spike rate: 0.13107944
+features.5.act: average spike rate: 0.10270405
+features.7.act: average spike rate: 0.11368370
+features.8.act: average spike rate: 0.11507368
+features.10.act: average spike rate: 0.18819332
+features.11.act: average spike rate: 0.07954597
+-----------------Epoch: 14-----------------
+features.0.act: average spike rate: 0.25124931
+features.1.act: average spike rate: 0.16438520
+features.2.act: average spike rate: 0.14346981
+features.4.act: average spike rate: 0.13038731
+features.5.act: average spike rate: 0.10018611
+features.7.act: average spike rate: 0.11011744
+features.8.act: average spike rate: 0.10906553
+features.10.act: average spike rate: 0.18677521
+features.11.act: average spike rate: 0.07937717
+-----------------Epoch: 15-----------------
+features.0.act: average spike rate: 0.25485659
+features.1.act: average spike rate: 0.16266966
+features.2.act: average spike rate: 0.14322948
+features.4.act: average spike rate: 0.12822628
+features.5.act: average spike rate: 0.09979200
+features.7.act: average spike rate: 0.10515499
+features.8.act: average spike rate: 0.10579157
+features.10.act: average spike rate: 0.18457031
+features.11.act: average spike rate: 0.07932091
+-----------------Epoch: 16-----------------
+features.0.act: average spike rate: 0.26009202
+features.1.act: average spike rate: 0.16596663
+features.2.act: average spike rate: 0.13968694
+features.4.act: average spike rate: 0.13027024
+features.5.act: average spike rate: 0.09611535
+features.7.act: average spike rate: 0.10766220
+features.8.act: average spike rate: 0.09589052
+features.10.act: average spike rate: 0.18382072
+features.11.act: average spike rate: 0.07728958
+-----------------Epoch: 17-----------------
+features.0.act: average spike rate: 0.26586843
+features.1.act: average spike rate: 0.16382849
+features.2.act: average spike rate: 0.14188755
+features.4.act: average spike rate: 0.12940931
+features.5.act: average spike rate: 0.09668183
+features.7.act: average spike rate: 0.10587931
+features.8.act: average spike rate: 0.09517097
+features.10.act: average spike rate: 0.18028927
+features.11.act: average spike rate: 0.07583332
+-----------------Epoch: 18-----------------
+features.0.act: average spike rate: 0.26739836
+features.1.act: average spike rate: 0.16574383
+features.2.act: average spike rate: 0.13971615
+features.4.act: average spike rate: 0.12964082
+features.5.act: average spike rate: 0.09496284
+features.7.act: average spike rate: 0.10125160
+features.8.act: average spike rate: 0.09000444
+features.10.act: average spike rate: 0.18386841
+features.11.act: average spike rate: 0.07492161
+-----------------Epoch: 19-----------------
+features.0.act: average spike rate: 0.27074051
+features.1.act: average spike rate: 0.16397202
+features.2.act: average spike rate: 0.14112210
+features.4.act: average spike rate: 0.13008857
+features.5.act: average spike rate: 0.09517956
+features.7.act: average spike rate: 0.10132694
+features.8.act: average spike rate: 0.08423615
+features.10.act: average spike rate: 0.18017101
+features.11.act: average spike rate: 0.07438087
+-----------------Epoch: 20-----------------
+features.0.act: average spike rate: 0.27479506
+features.1.act: average spike rate: 0.16235459
+features.2.act: average spike rate: 0.14068413
+features.4.act: average spike rate: 0.12898207
+features.5.act: average spike rate: 0.09307814
+features.7.act: average spike rate: 0.10156107
+features.8.act: average spike rate: 0.08091640
+features.10.act: average spike rate: 0.17904758
+features.11.act: average spike rate: 0.07258320
+-----------------Epoch: 21-----------------
+features.0.act: average spike rate: 0.27883649
+features.1.act: average spike rate: 0.16465187
+features.2.act: average spike rate: 0.14027631
+features.4.act: average spike rate: 0.13132620
+features.5.act: average spike rate: 0.09306765
+features.7.act: average spike rate: 0.09925461
+features.8.act: average spike rate: 0.08047390
+features.10.act: average spike rate: 0.17591667
+features.11.act: average spike rate: 0.07279873
+-----------------Epoch: 22-----------------
+features.0.act: average spike rate: 0.28113985
+features.1.act: average spike rate: 0.16328812
+features.2.act: average spike rate: 0.14111602
+features.4.act: average spike rate: 0.13060308
+features.5.act: average spike rate: 0.09390903
+features.7.act: average spike rate: 0.09497261
+features.8.act: average spike rate: 0.07710075
+features.10.act: average spike rate: 0.17387295
+features.11.act: average spike rate: 0.07153511
+-----------------Epoch: 23-----------------
+features.0.act: average spike rate: 0.28386545
+features.1.act: average spike rate: 0.16388202
+features.2.act: average spike rate: 0.13942039
+features.4.act: average spike rate: 0.13110113
+features.5.act: average spike rate: 0.09268856
+features.7.act: average spike rate: 0.09577990
+features.8.act: average spike rate: 0.07395697
+features.10.act: average spike rate: 0.17442799
+features.11.act: average spike rate: 0.07013988
+-----------------Epoch: 24-----------------
+features.0.act: average spike rate: 0.28254914
+features.1.act: average spike rate: 0.16520119
+features.2.act: average spike rate: 0.14108431
+features.4.act: average spike rate: 0.13135743
+features.5.act: average spike rate: 0.09188938
+features.7.act: average spike rate: 0.09417152
+features.8.act: average spike rate: 0.07181740
+features.10.act: average spike rate: 0.17171764
+features.11.act: average spike rate: 0.06879997
+-----------------Epoch: 25-----------------
+features.0.act: average spike rate: 0.29056191
+features.1.act: average spike rate: 0.16392016
+features.2.act: average spike rate: 0.14159679
+features.4.act: average spike rate: 0.13079858
+features.5.act: average spike rate: 0.09180617
+features.7.act: average spike rate: 0.09478998
+features.8.act: average spike rate: 0.06944561
+features.10.act: average spike rate: 0.16977882
+features.11.act: average spike rate: 0.06784344
+-----------------Epoch: 26-----------------
+features.0.act: average spike rate: 0.28703952
+features.1.act: average spike rate: 0.16459823
+features.2.act: average spike rate: 0.14160872
+features.4.act: average spike rate: 0.13351393
+features.5.act: average spike rate: 0.09145498
+features.7.act: average spike rate: 0.09381008
+features.8.act: average spike rate: 0.06640291
+features.10.act: average spike rate: 0.16741562
+features.11.act: average spike rate: 0.06698608
+-----------------Epoch: 27-----------------
+features.0.act: average spike rate: 0.28909159
+features.1.act: average spike rate: 0.16496527
+features.2.act: average spike rate: 0.13996983
+features.4.act: average spike rate: 0.13277102
+features.5.act: average spike rate: 0.09177542
+features.7.act: average spike rate: 0.09398317
+features.8.act: average spike rate: 0.06451797
+features.10.act: average spike rate: 0.16405678
+features.11.act: average spike rate: 0.06563377
+-----------------Epoch: 28-----------------
+features.0.act: average spike rate: 0.29261017
+features.1.act: average spike rate: 0.16459882
+features.2.act: average spike rate: 0.14170325
+features.4.act: average spike rate: 0.13399339
+features.5.act: average spike rate: 0.09208775
+features.7.act: average spike rate: 0.09161758
+features.8.act: average spike rate: 0.06357288
+features.10.act: average spike rate: 0.15940189
+features.11.act: average spike rate: 0.06502342
+-----------------Epoch: 29-----------------
+features.0.act: average spike rate: 0.29405642
+features.1.act: average spike rate: 0.16299951
+features.2.act: average spike rate: 0.14188743
+features.4.act: average spike rate: 0.13006020
+features.5.act: average spike rate: 0.09194875
+features.7.act: average spike rate: 0.09070110
+features.8.act: average spike rate: 0.05994415
+features.10.act: average spike rate: 0.16177559
+features.11.act: average spike rate: 0.06237793
+-----------------Epoch: 30-----------------
+features.0.act: average spike rate: 0.29795480
+features.1.act: average spike rate: 0.16433716
+features.2.act: average spike rate: 0.14177299
+features.4.act: average spike rate: 0.13223529
+features.5.act: average spike rate: 0.09045458
+features.7.act: average spike rate: 0.09176636
+features.8.act: average spike rate: 0.05981541
+features.10.act: average spike rate: 0.15914726
+features.11.act: average spike rate: 0.06033802
+-----------------Epoch: 31-----------------
+features.0.act: average spike rate: 0.29686999
+features.1.act: average spike rate: 0.16489005
+features.2.act: average spike rate: 0.14165723
+features.4.act: average spike rate: 0.13333344
+features.5.act: average spike rate: 0.09141588
+features.7.act: average spike rate: 0.09175634
+features.8.act: average spike rate: 0.05914640
+features.10.act: average spike rate: 0.15550137
+features.11.act: average spike rate: 0.05924225
+-----------------Epoch: 32-----------------
+features.0.act: average spike rate: 0.30077338
+features.1.act: average spike rate: 0.16376913
+features.2.act: average spike rate: 0.14255250
+features.4.act: average spike rate: 0.13358665
+features.5.act: average spike rate: 0.09262991
+features.7.act: average spike rate: 0.09187269
+features.8.act: average spike rate: 0.05877495
+features.10.act: average spike rate: 0.15472698
+features.11.act: average spike rate: 0.05675697
+-----------------Epoch: 33-----------------
+features.0.act: average spike rate: 0.30332303
+features.1.act: average spike rate: 0.16607499
+features.2.act: average spike rate: 0.14228523
+features.4.act: average spike rate: 0.13324976
+features.5.act: average spike rate: 0.09172344
+features.7.act: average spike rate: 0.09154844
+features.8.act: average spike rate: 0.05784035
+features.10.act: average spike rate: 0.15277672
+features.11.act: average spike rate: 0.05510807
+-----------------Epoch: 34-----------------
+features.0.act: average spike rate: 0.30603123
+features.1.act: average spike rate: 0.16368771
+features.2.act: average spike rate: 0.14337826
+features.4.act: average spike rate: 0.13536310
+features.5.act: average spike rate: 0.09269404
+features.7.act: average spike rate: 0.09217596
+features.8.act: average spike rate: 0.05801725
+features.10.act: average spike rate: 0.15114212
+features.11.act: average spike rate: 0.05195141
+-----------------Epoch: 35-----------------
+features.0.act: average spike rate: 0.30031967
+features.1.act: average spike rate: 0.16619575
+features.2.act: average spike rate: 0.14327836
+features.4.act: average spike rate: 0.13513374
+features.5.act: average spike rate: 0.09345031
+features.7.act: average spike rate: 0.09170055
+features.8.act: average spike rate: 0.05640316
+features.10.act: average spike rate: 0.15130424
+features.11.act: average spike rate: 0.04834366
+-----------------Epoch: 36-----------------
+features.0.act: average spike rate: 0.30307078
+features.1.act: average spike rate: 0.16640806
+features.2.act: average spike rate: 0.14448535
+features.4.act: average spike rate: 0.13479280
+features.5.act: average spike rate: 0.09378600
+features.7.act: average spike rate: 0.09234238
+features.8.act: average spike rate: 0.05554247
+features.10.act: average spike rate: 0.15048504
+features.11.act: average spike rate: 0.04516125
+-----------------Epoch: 37-----------------
+features.0.act: average spike rate: 0.30679989
+features.1.act: average spike rate: 0.16496027
+features.2.act: average spike rate: 0.14603186
+features.4.act: average spike rate: 0.13504958
+features.5.act: average spike rate: 0.09425831
+features.7.act: average spike rate: 0.09353733
+features.8.act: average spike rate: 0.05530548
+features.10.act: average spike rate: 0.14865398
+features.11.act: average spike rate: 0.04226208
+-----------------Epoch: 38-----------------
+features.0.act: average spike rate: 0.30475712
+features.1.act: average spike rate: 0.16616285
+features.2.act: average spike rate: 0.14489543
+features.4.act: average spike rate: 0.13785768
+features.5.act: average spike rate: 0.09446096
+features.7.act: average spike rate: 0.09369707
+features.8.act: average spike rate: 0.05443573
+features.10.act: average spike rate: 0.14642334
+features.11.act: average spike rate: 0.03823280
+-----------------Epoch: 39-----------------
+features.0.act: average spike rate: 0.30370188
+features.1.act: average spike rate: 0.16663289
+features.2.act: average spike rate: 0.14589334
+features.4.act: average spike rate: 0.13480020
+features.5.act: average spike rate: 0.09381509
+features.7.act: average spike rate: 0.09304667
+features.8.act: average spike rate: 0.05378294
+features.10.act: average spike rate: 0.14465904
+features.11.act: average spike rate: 0.03580666
+-----------------Epoch: 40-----------------
+features.0.act: average spike rate: 0.30424094
+features.1.act: average spike rate: 0.16777921
+features.2.act: average spike rate: 0.14613962
+features.4.act: average spike rate: 0.13636494
+features.5.act: average spike rate: 0.09514332
+features.7.act: average spike rate: 0.09461832
+features.8.act: average spike rate: 0.05316973
+features.10.act: average spike rate: 0.14392281
+features.11.act: average spike rate: 0.03157425
+-----------------Epoch: 41-----------------
+features.0.act: average spike rate: 0.30496454
+features.1.act: average spike rate: 0.16849077
+features.2.act: average spike rate: 0.14580476
+features.4.act: average spike rate: 0.13623333
+features.5.act: average spike rate: 0.09527588
+features.7.act: average spike rate: 0.09394693
+features.8.act: average spike rate: 0.05189800
+features.10.act: average spike rate: 0.14359665
+features.11.act: average spike rate: 0.02925777
+-----------------Epoch: 42-----------------
+features.0.act: average spike rate: 0.30840158
+features.1.act: average spike rate: 0.16828263
+features.2.act: average spike rate: 0.14701688
+features.4.act: average spike rate: 0.13775396
+features.5.act: average spike rate: 0.09544826
+features.7.act: average spike rate: 0.09498358
+features.8.act: average spike rate: 0.05338240
+features.10.act: average spike rate: 0.14536572
+features.11.act: average spike rate: 0.02563381
+-----------------Epoch: 43-----------------
+features.0.act: average spike rate: 0.30992961
+features.1.act: average spike rate: 0.16729033
+features.2.act: average spike rate: 0.14586198
+features.4.act: average spike rate: 0.14054036
+features.5.act: average spike rate: 0.09567976
+features.7.act: average spike rate: 0.09390163
+features.8.act: average spike rate: 0.05239391
+features.10.act: average spike rate: 0.14245129
+features.11.act: average spike rate: 0.02346992
+-----------------Epoch: 44-----------------
+features.0.act: average spike rate: 0.31064034
+features.1.act: average spike rate: 0.16747606
+features.2.act: average spike rate: 0.14648759
+features.4.act: average spike rate: 0.13750148
+features.5.act: average spike rate: 0.09626698
+features.7.act: average spike rate: 0.09487724
+features.8.act: average spike rate: 0.05082369
+features.10.act: average spike rate: 0.13906956
+features.11.act: average spike rate: 0.02082920
+-----------------Epoch: 45-----------------
+features.0.act: average spike rate: 0.31365395
+features.1.act: average spike rate: 0.16875303
+features.2.act: average spike rate: 0.14752221
+features.4.act: average spike rate: 0.13954258
+features.5.act: average spike rate: 0.09736061
+features.7.act: average spike rate: 0.09637403
+features.8.act: average spike rate: 0.05062914
+features.10.act: average spike rate: 0.14253044
+features.11.act: average spike rate: 0.01754475
+-----------------Epoch: 46-----------------
+features.0.act: average spike rate: 0.30977368
+features.1.act: average spike rate: 0.17043138
+features.2.act: average spike rate: 0.14794362
+features.4.act: average spike rate: 0.13896370
+features.5.act: average spike rate: 0.09790826
+features.7.act: average spike rate: 0.09465408
+features.8.act: average spike rate: 0.05109644
+features.10.act: average spike rate: 0.14081669
+features.11.act: average spike rate: 0.01564312
+-----------------Epoch: 47-----------------
+features.0.act: average spike rate: 0.31178427
+features.1.act: average spike rate: 0.16879034
+features.2.act: average spike rate: 0.14767873
+features.4.act: average spike rate: 0.13973022
+features.5.act: average spike rate: 0.09601784
+features.7.act: average spike rate: 0.09567642
+features.8.act: average spike rate: 0.04947805
+features.10.act: average spike rate: 0.13857365
+features.11.act: average spike rate: 0.01452255
+-----------------Epoch: 48-----------------
+features.0.act: average spike rate: 0.31403065
+features.1.act: average spike rate: 0.17001128
+features.2.act: average spike rate: 0.14795184
+features.4.act: average spike rate: 0.14072180
+features.5.act: average spike rate: 0.09738374
+features.7.act: average spike rate: 0.09383678
+features.8.act: average spike rate: 0.04992294
+features.10.act: average spike rate: 0.13806629
+features.11.act: average spike rate: 0.01270962
+-----------------Epoch: 49-----------------
+features.0.act: average spike rate: 0.31228256
+features.1.act: average spike rate: 0.16788948
+features.2.act: average spike rate: 0.14773190
+features.4.act: average spike rate: 0.13875413
+features.5.act: average spike rate: 0.09732676
+features.7.act: average spike rate: 0.09409571
+features.8.act: average spike rate: 0.04939413
+features.10.act: average spike rate: 0.13710117
+features.11.act: average spike rate: 0.01119518
+-----------------Epoch: 50-----------------
+features.0.act: average spike rate: 0.31435466
+features.1.act: average spike rate: 0.16964209
+features.2.act: average spike rate: 0.14909065
+features.4.act: average spike rate: 0.14150715
+features.5.act: average spike rate: 0.09741449
+features.7.act: average spike rate: 0.09637308
+features.8.act: average spike rate: 0.04902887
+features.10.act: average spike rate: 0.14054966
+features.11.act: average spike rate: 0.00931358
+-----------------------

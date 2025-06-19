@@ -1,0 +1,31 @@
+Epoch 1:
+-----------------Epoch: 1-----------------
+features.0.act: average spike rate: 0.17197633
+features.1.act: average spike rate: 0.16319001
+features.2.act: average spike rate: 0.16359365
+features.4.act: average spike rate: 0.17727613
+features.5.act: average spike rate: 0.17985463
+features.7.act: average spike rate: 0.19309998
+features.8.act: average spike rate: 0.17647219
+features.10.act: average spike rate: 0.21099091
+features.11.act: average spike rate: 0.11422253
+
+-----------------Epoch: 50-----------------
+features.0.act: average spike rate: 0.31435466
+features.1.act: average spike rate: 0.16964209
+features.2.act: average spike rate: 0.14909065
+features.4.act: average spike rate: 0.14150715
+features.5.act: average spike rate: 0.09741449
+features.7.act: average spike rate: 0.09637308
+features.8.act: average spike rate: 0.04902887
+features.10.act: average spike rate: 0.14054966
+features.11.act: average spike rate: 0.00931358
+
+--- Energy Report ---
+Total training time   : 7879.51 s
+Total energy consumed : 1485990.98 J
+Average power draw    : 188.59 W
+-----------------------
+
+Top-1 Accuracy
+91.17%
